@@ -47,7 +47,7 @@ impl Runtime for ChainXRuntime {
 async fn test_build_client() -> Result<()> {
     use subxt::ClientBuilder;
     let client = ClientBuilder::<subxt::DefaultNodeRuntime>::new()
-        .set_url("http://117.51.150.77:9096")
+        .set_url("http://localhost:8086")
         .build()
         .await?;
     client.block_hash(Some(1.into())).await?;

@@ -8,7 +8,10 @@ use subxt::{
     EventTypeRegistry, Runtime,
 };
 
-use self::pallet::xgateway_bitcoin_v2::{XGatewayBitcoinV2, XGatewayBitcoinV2EventTypeRegistry};
+use self::pallet::{
+    xgateway_bitcoin_v2::{XGatewayBitcoinV2, XGatewayBitcoinV2EventTypeRegistry},
+    xgateway_records::{XGatewayRecords, XGatewayRecordsEventTypeRegistry},
+};
 
 mod pallet;
 
@@ -33,12 +36,15 @@ impl Balances for ChainXRuntime {
 
 impl XGatewayBitcoinV2 for ChainXRuntime {}
 
+impl XGatewayRecords for ChainXRuntime {}
+
 impl Runtime for ChainXRuntime {
     type Signature = xprimitives::Signature;
     type Extra = DefaultExtra<Self>;
 
     fn register_type_sizes(event_type_registry: &mut EventTypeRegistry<Self>) {
         event_type_registry.with_x_gateway_bitcoin_v2();
+        event_type_registry.with_x_gateway_records();
         register_default_type_sizes(event_type_registry);
     }
 }
@@ -46,8 +52,8 @@ impl Runtime for ChainXRuntime {
 #[tokio::test]
 async fn test_build_client() -> Result<()> {
     use subxt::ClientBuilder;
-    let client = ClientBuilder::<subxt::DefaultNodeRuntime>::new()
-        .set_url("http://localhost:8086")
+    let client = ClientBuilder::<ChainXRuntime>::new()
+        .set_url("http://192.168.3.69:8086")
         .build()
         .await?;
     client.block_hash(Some(1.into())).await?;

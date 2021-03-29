@@ -349,6 +349,18 @@ dependencies = [
 ]
 
 [[package]]
+name = "bs58"
+version = "0.3.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "476e9cd489f9e121e02ffa6014a8ef220ecb15c05ed23fc34cca13925dc283fb"
+
+[[package]]
+name = "bs58"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "771fe0050b883fcc3ea2359b1a96bcfbc090b7116eae7c3c512c7a083fdf23d3"
+
+[[package]]
 name = "bstr"
 version = "0.2.15"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -438,8 +450,11 @@ dependencies = [
  "anyhow",
  "chainx-primitives",
  "parity-scale-codec",
+ "sp-arithmetic",
  "substrate-subxt",
  "tokio",
+ "xpallet-gateway-bitcoin-v2",
+ "xpallet-gateway-records",
 ]
 
 [[package]]
@@ -760,7 +775,7 @@ dependencies = [
  "bitflags",
  "frame-metadata",
  "frame-support-procedural",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "log",
  "once_cell",
  "parity-scale-codec",
@@ -822,7 +837,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f5fedbff05d665c00bf4e089b4377fcb15b8bd37ebc3e5fc06665474cf6e25d7"
 dependencies = [
  "frame-support",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "serde",
  "sp-core",
@@ -837,6 +852,12 @@ name = "funty"
 version = "1.1.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "fed34cd105917e91daa4da6b3728c47b068749d6a62c59811f06ed2ac71d9da7"
+
+[[package]]
+name = "futures"
+version = "0.1.31"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3a471a38ef8ed83cd6e40aa59c1ffe17db6855c18e3604d9c4ed8c08ebc28678"
 
 [[package]]
 name = "futures"
@@ -1232,6 +1253,17 @@ dependencies = [
 
 [[package]]
 name = "impl-trait-for-tuples"
+version = "0.1.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7ef5550a42e3740a0e71f909d4c861056a284060af885ae7aa6242820f920d9d"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
+name = "impl-trait-for-tuples"
 version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "d5dacb10c5b3bb92d46ba347505a9041e676bb20ad220101326bffb0c93031ee"
@@ -1285,13 +1317,26 @@ dependencies = [
 ]
 
 [[package]]
+name = "jsonrpc-core"
+version = "15.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0745a6379e3edc893c84ec203589790774e4247420033e71a76d3ab4687991fa"
+dependencies = [
+ "futures 0.1.31",
+ "log",
+ "serde",
+ "serde_derive",
+ "serde_json",
+]
+
+[[package]]
 name = "jsonrpsee-http-client"
 version = "0.2.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9b15fc3a0ef2e02d770aa1a221d3412443dcaedc43e27d80c957dd5bbd65321b"
 dependencies = [
  "async-trait",
- "futures",
+ "futures 0.3.13",
  "hyper",
  "hyper-rustls",
  "jsonrpsee-types",
@@ -1311,7 +1356,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "c42a82588b5f7830e94341bb7e79d15f46070ab6f64dde1e3b3719721b61c5bf"
 dependencies = [
  "async-trait",
- "futures",
+ "futures 0.3.13",
  "log",
  "serde",
  "serde_json",
@@ -1325,7 +1370,7 @@ version = "0.2.0-alpha.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e65c77838fce96bc554b4a3a159d0b9a2497319ae9305c66ee853998c7ed2fd3"
 dependencies = [
- "futures",
+ "futures 0.3.13",
  "globset",
  "hyper",
  "jsonrpsee-types",
@@ -1344,7 +1389,7 @@ dependencies = [
  "async-tls",
  "async-trait",
  "fnv",
- "futures",
+ "futures 0.3.13",
  "jsonrpsee-types",
  "log",
  "pin-project",
@@ -1403,6 +1448,118 @@ dependencies = [
  "sha2 0.8.2",
  "subtle 2.4.0",
  "typenum",
+]
+
+[[package]]
+name = "light-bitcoin"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "light-bitcoin-chain",
+ "light-bitcoin-crypto",
+ "light-bitcoin-keys",
+ "light-bitcoin-merkle",
+ "light-bitcoin-primitives",
+ "light-bitcoin-script",
+ "light-bitcoin-serialization",
+]
+
+[[package]]
+name = "light-bitcoin-chain"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "hex",
+ "light-bitcoin-crypto",
+ "light-bitcoin-primitives",
+ "light-bitcoin-serialization",
+ "parity-scale-codec",
+ "serde",
+]
+
+[[package]]
+name = "light-bitcoin-crypto"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "digest 0.9.0",
+ "light-bitcoin-primitives",
+ "ripemd160",
+ "sha-1",
+ "sha2 0.9.3",
+ "siphasher",
+]
+
+[[package]]
+name = "light-bitcoin-keys"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "bs58 0.4.0",
+ "hex",
+ "libsecp256k1",
+ "light-bitcoin-crypto",
+ "light-bitcoin-primitives",
+ "light-bitcoin-serialization",
+ "parity-scale-codec",
+ "serde",
+]
+
+[[package]]
+name = "light-bitcoin-merkle"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "light-bitcoin-chain",
+ "light-bitcoin-primitives",
+ "light-bitcoin-serialization",
+ "parity-scale-codec",
+]
+
+[[package]]
+name = "light-bitcoin-primitives"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "byteorder",
+ "fixed-hash",
+ "hex",
+ "impl-codec",
+ "impl-serde",
+ "primitive-types",
+ "serde",
+]
+
+[[package]]
+name = "light-bitcoin-script"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "hex",
+ "light-bitcoin-chain",
+ "light-bitcoin-crypto",
+ "light-bitcoin-keys",
+ "light-bitcoin-primitives",
+ "light-bitcoin-serialization",
+]
+
+[[package]]
+name = "light-bitcoin-serialization"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "light-bitcoin-primitives",
+ "light-bitcoin-serialization-derive",
+]
+
+[[package]]
+name = "light-bitcoin-serialization-derive"
+version = "0.2.0"
+source = "git+https://github.com/chainx-org/light-bitcoin?branch=master#1e12efba33d9805d612b878cbb9a2d3a8a2bf8e2"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
 ]
 
 [[package]]
@@ -1665,6 +1822,39 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77af24da69f9d9341038eba93a073b1fdaaa1b788221b00a69bce9e762cb32de"
 
 [[package]]
+name = "orml-traits"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "18dd4788a7b96709d23081b1a33a5b8477cf25833f20b27b19908d5babdfe7ab"
+dependencies = [
+ "frame-support",
+ "funty",
+ "impl-trait-for-tuples 0.1.3",
+ "num-traits",
+ "orml-utilities",
+ "parity-scale-codec",
+ "serde",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "orml-utilities"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3f84d1a0ce4c65a8695cf8c41895c6161d2345214a4a413e674478f6a37968db"
+dependencies = [
+ "frame-support",
+ "funty",
+ "parity-scale-codec",
+ "serde",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
 name = "pallet-authorship"
 version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1672,7 +1862,7 @@ checksum = "47433a94141451e7079aabf3ca28f2bde8c642d84b568be9626e9b7cae8b11b1"
 dependencies = [
  "frame-support",
  "frame-system",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "sp-authorship",
  "sp-inherents",
@@ -1705,7 +1895,7 @@ checksum = "6d243c3ccac56a4c55fade6be5c5af1de07fac374fa7856377980a76b0c193cf"
 dependencies = [
  "frame-support",
  "frame-system",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "pallet-timestamp",
  "parity-scale-codec",
  "serde",
@@ -1748,7 +1938,7 @@ dependencies = [
  "frame-benchmarking",
  "frame-support",
  "frame-system",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "serde",
  "sp-inherents",
@@ -1790,7 +1980,7 @@ checksum = "664a8c6b8e62d8f9f2f937e391982eb433ab285b4cd9545b342441e04a906e42"
 dependencies = [
  "cfg-if 1.0.0",
  "hashbrown",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-util-mem-derive",
  "parking_lot",
  "primitive-types",
@@ -2195,6 +2385,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "ripemd160"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2eca4ecc81b7f313189bf73ce724400a07da2a6dac19588b03c8bd76a2dcc251"
+dependencies = [
+ "block-buffer 0.9.0",
+ "digest 0.9.0",
+ "opaque-debug 0.3.0",
+]
+
+[[package]]
 name = "rustc-demangle"
 version = "0.1.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2417,6 +2618,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "siphasher"
+version = "0.3.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cbce6d4507c7e4a3962091436e56e95290cb71fa302d0d270e32130b75fbff27"
+
+[[package]]
 name = "slab"
 version = "0.4.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2446,7 +2653,7 @@ checksum = "b5c71ed3d54db0a699f4948e1bb3e45b450fa31fe602621dee6680361d569c88"
 dependencies = [
  "base64 0.12.3",
  "bytes 0.5.6",
- "futures",
+ "futures 0.3.13",
  "httparse",
  "log",
  "rand 0.7.3",
@@ -2533,7 +2740,7 @@ dependencies = [
  "byteorder",
  "dyn-clonable",
  "ed25519-dalek",
- "futures",
+ "futures 0.3.13",
  "hash-db",
  "hash256-std-hasher",
  "hex",
@@ -2609,7 +2816,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "33fd69f0a6e91bedc2fb1c5cc3689c212474b6c918274cb4cb14dbbe3c428c14"
 dependencies = [
- "futures",
+ "futures 0.3.13",
  "hash-db",
  "libsecp256k1",
  "log",
@@ -2648,7 +2855,7 @@ checksum = "db6ccd2baf189112355338e8b224dc513cd239b974dbd717f12b3dc7a7248c3b"
 dependencies = [
  "async-trait",
  "derive_more",
- "futures",
+ "futures 0.3.13",
  "merlin",
  "parity-scale-codec",
  "parking_lot",
@@ -2710,7 +2917,7 @@ checksum = "dfa4b353b76f04616dbdb8d269d58dcac47acb31c006d3b70e7b64233e68695e"
 dependencies = [
  "either",
  "hash256-std-hasher",
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "log",
  "parity-scale-codec",
  "parity-util-mem",
@@ -2730,7 +2937,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b2e5c88b4bc8d607e4e2ff767a85db58cf7101f3dd6064f06929342ea67fe8fb"
 dependencies = [
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "primitive-types",
  "sp-externalities",
@@ -2829,7 +3036,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "27387c541197b9f47f3d9ddcab5649a3ecdca582d2f2ea2b511af24a3d3cbf83"
 dependencies = [
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "sp-api",
  "sp-inherents",
@@ -2886,7 +3093,7 @@ version = "3.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b214e125666a6416cf30a70cc6a5dacd34a4e5197f8a3d479f714af7e1dc7a47"
 dependencies = [
- "impl-trait-for-tuples",
+ "impl-trait-for-tuples 0.2.1",
  "parity-scale-codec",
  "sp-std",
  "wasmi",
@@ -2956,7 +3163,7 @@ dependencies = [
  "frame-metadata",
  "frame-support",
  "funty",
- "futures",
+ "futures 0.3.13",
  "hex",
  "jsonrpsee-http-client",
  "jsonrpsee-types",
@@ -3469,7 +3676,7 @@ version = "0.2.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "be0ecb0db480561e9a7642b5d3e4187c128914e58aa84330b9493e3eb68c5e7f"
 dependencies = [
- "futures",
+ "futures 0.3.13",
  "js-sys",
  "parking_lot",
  "pin-utils",
@@ -3566,6 +3773,154 @@ name = "wyz"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "85e60b0d1b5f99db2556934e21937020776a5d31520bf169e851ac44e6420214"
+
+[[package]]
+name = "xp-assets-registrar"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "chainx-primitives",
+ "impl-trait-for-tuples 0.2.1",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "xp-logging"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+
+[[package]]
+name = "xp-protocol"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "chainx-primitives",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+]
+
+[[package]]
+name = "xp-rpc"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "hex",
+ "jsonrpc-core",
+ "serde",
+]
+
+[[package]]
+name = "xp-runtime"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "parity-scale-codec",
+ "serde",
+ "sp-core",
+ "sp-runtime",
+ "sp-std",
+]
+
+[[package]]
+name = "xpallet-assets"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "bitflags",
+ "chainx-primitives",
+ "frame-support",
+ "frame-system",
+ "orml-traits",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+ "xp-logging",
+ "xp-protocol",
+ "xpallet-assets-registrar",
+ "xpallet-support",
+]
+
+[[package]]
+name = "xpallet-assets-registrar"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "chainx-primitives",
+ "frame-support",
+ "frame-system",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+ "xp-assets-registrar",
+ "xp-logging",
+ "xp-protocol",
+ "xp-rpc",
+ "xp-runtime",
+ "xpallet-support",
+]
+
+[[package]]
+name = "xpallet-gateway-bitcoin-v2"
+version = "2.0.1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "bitflags",
+ "bs58 0.3.1",
+ "chainx-primitives",
+ "frame-support",
+ "frame-system",
+ "impl-trait-for-tuples 0.2.1",
+ "light-bitcoin",
+ "parity-scale-codec",
+ "serde",
+ "sha2 0.8.2",
+ "sp-arithmetic",
+ "sp-core",
+ "sp-inherents",
+ "sp-io",
+ "sp-runtime",
+ "sp-std",
+ "sp-version",
+ "xp-protocol",
+ "xpallet-assets",
+ "xpallet-assets-registrar",
+]
+
+[[package]]
+name = "xpallet-gateway-records"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "chainx-primitives",
+ "frame-support",
+ "frame-system",
+ "orml-utilities",
+ "parity-scale-codec",
+ "serde",
+ "sp-runtime",
+ "sp-std",
+ "xp-logging",
+ "xp-protocol",
+ "xp-runtime",
+ "xpallet-assets",
+ "xpallet-assets-registrar",
+ "xpallet-support",
+]
+
+[[package]]
+name = "xpallet-support"
+version = "2.0.8-1"
+source = "git+https://github.com/chainx-org/ChainX?branch=feature/testnet#94f5ec39773392812d169bdd316abfb0629d60c3"
+dependencies = [
+ "hex",
+ "sp-std",
+]
 
 [[package]]
 name = "zeroize"

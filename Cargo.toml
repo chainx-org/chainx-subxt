@@ -15,3 +15,6 @@ codec = { package = "parity-scale-codec", version = "2.0", features = ["derive",
 
 subxt = { package = "substrate-subxt", git = "https://github.com/paritytech/substrate-subxt" }
 xprimitives = { package = "chainx-primitives", git = "https://github.com/chainx-org/ChainX", branch = "feature/testnet" }
+xgateway_bitcoin_v2 = { package = "xpallet-gateway-bitcoin-v2", git = "https://github.com/chainx-org/ChainX", branch = "feature/testnet" }
+xgateway_records = { package = "xpallet-gateway-records", git = "https://github.com/chainx-org/ChainX", branch = "feature/testnet" }
+sp-arithmetic = { version = "3.0.0", default-features = false }
